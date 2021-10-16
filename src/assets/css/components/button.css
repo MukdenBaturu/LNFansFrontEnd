@@ -1,0 +1,9 @@
+.function-group {
+  float: right
+}
+
+.function-btn {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}

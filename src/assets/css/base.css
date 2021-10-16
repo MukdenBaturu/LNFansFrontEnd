@@ -1,0 +1,13 @@
+.w {
+  width:1200px;
+  min-width: 1200px;
+  font-size: 14px;
+  margin: auto;
+}
+
+.top-bar {
+  width:100%;
+  background-color: black;
+  color: white;
+}
+

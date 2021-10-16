@@ -1,0 +1,32 @@
+
+img.logo{
+  margin-left: 100px;
+  border-radius: 20px;
+}
+
+img.logo,
+.top-bar {
+  line-height: 40px;
+  height: 40px;
+}
+
+.top-bar div {
+  margin-left: 40px;
+  float: left;
+}
+
+.top-bar .func {
+  float: right;
+  margin-right: 100px;
+}
+
+.top-bar div ul li {
+  float: left;
+  margin-left: 40px;
+}
+
+.mylink {
+  color: white;
+  text-decoration: none;
+  margin-left: 40px;
+}
