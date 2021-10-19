@@ -18,11 +18,13 @@
         v-model="newArticle.articleText"
         defaultOpen="preview"
         :boxShadow="false"
-        style="z-index:1;"
+        style="z-index:1; height: auto"
         :editable="true"
         :subfield="true"
         :toolbarsFlag="true"
         class="articleText"
+        @imgAdd="imgAdd"
+        ref="md"
       >
       </mavon-editor>
     </template>
@@ -31,7 +33,7 @@
           v-model="article.articleText"
           defaultOpen="preview"
           :boxShadow="false"
-          style="z-index:1;"
+          style="z-index:1; height: auto"
           :editable="false"
           :subfield="false"
           :toolbarsFlag="false"
@@ -40,7 +42,8 @@
       </mavon-editor>
     </template>
     <div v-show="edit" class="function-group">
-      <button class="btn-primary function-btn" @click="editClicked">编辑</button>
+      <button class="btn-primary function-btn" v-show="!editing" @click="editClicked">编辑</button>
+      <button class="btn-danger function-btn" v-show="!editing" @click="deleteArticle">删除</button>
       <button class="btn-warning function-btn" v-show="editing" @click="returnClicked">返回</button>
       <button class="btn-danger function-btn" v-show="editing" @click="submitAlteredArticle">提交</button>
     </div>
@@ -91,6 +94,21 @@ export default {
       this.editing = false
       this.newArticle = null
     },
+    imgAdd (pos, $file) {
+      const _this = this
+      const formData = new FormData()
+      formData.append('img', $file)
+      this.$axios.post('http://localhost:3000/article/addimg', formData, {
+        headers: {'Content-Type': 'multipart/form-data', 'Authorization': window.sessionStorage.getItem('userToken')}
+      }).then((response) => {
+        if (response.status === 200) {
+          const _url = response.data.picUrl
+          console.log(response.data.picUrl)
+          console.log(_this.$refs)
+          _this.$refs.md.$img2Url(pos, _url)
+        }
+      })
+    },
     submitAlteredArticle () {
       if (this.newArticle.title === '') {
         alert('文章标题不能为空')
@@ -109,6 +127,20 @@ export default {
           alert('更新失败')
         } else {
           location.reload()
+        }
+      })
+    },
+    deleteArticle () {
+      const _this = this
+      this.$axios.post('http://localhost:3000/article/delete', {
+        author: this.article.author,
+        jwt: window.sessionStorage.getItem('userToken'),
+        articleId: this.article.articleId
+      }).then((res) => {
+        if (res.data.status !== 'success') {
+          alert(res.data.msg)
+        } else {
+          _this.$router.push({name: 'index'})
         }
       })
     }
