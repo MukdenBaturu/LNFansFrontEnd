@@ -14,12 +14,15 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "crypto": "^1.0.1",
+    "echarts": "^5.2.1",
+    "echarts-wordcloud": "^2.0.0",
     "jquery": "^3.6.0",
     "jsencrypt": "^3.1.0",
     "mavon-editor": "^2.9.1",
     "popper.js": "^1.16.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
+    "vue-wordcloud": "^1.1.1",
     "vue2-datepicker": "^3.10.1"
   },
   "devDependencies": {

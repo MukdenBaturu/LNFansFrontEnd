@@ -1,7 +1,7 @@
 import '../assets/css/base.css'
 
 <template>
-  <div class="blog-list-wrapper w" style="text-align: center">
+  <div class="blog-list-wrapper" style="text-align: center; width: 800px">
     <ul class="article-list">
       <li v-for="article in articles" :key="article.articleId">
         <div class="article-wrapper">
@@ -54,6 +54,7 @@ import '../assets/css/base.css'
 </template>
 
 <script>
+import WordCloudBus from '../utils/WordCloudBus'
 export default {
   name: 'Blogger',
   data () {
@@ -100,6 +101,14 @@ export default {
         return
       }
       this.pageCount = Math.ceil(parseInt(response.data.pageCount, 10) / this.pageLen)
+    })
+
+    this.$axios.post('http://localhost:3000/label/getAllLabels', {
+      jwt: window.sessionStorage.getItem('userToken')
+    }).then((res) => {
+      if (res.data.status === 'success') {
+        WordCloudBus.$emit('WordCloud', res.data.labels)
+      }
     })
   },
   methods: {

@@ -11,6 +11,7 @@ import Verify from '../components/User/PowerUser/Verify'
 import DetailedArticle from '../components/DetailedArticle'
 import MatchManager from '../components/User/PowerUser/MatchManager'
 import MatchList from '../components/MatchList'
+import WordCloud from '../components/BlogComponents/WordCloud'
 
 Vue.use(Router)
 
@@ -26,7 +27,25 @@ export default new Router({
       name: 'index',
       components: {
         header: TopBar,
-        content: Blogger
+        content: PowerUserInterface
+      },
+      children: [
+        {
+          path: '/',
+          components: {
+            left: Blogger,
+            content: WordCloud
+          }
+        }
+      ]
+    },
+    {
+      // only for test
+      path: '/testwordcloud',
+      name: 'testwordcloud',
+      components: {
+        header: TopBar,
+        content: WordCloud
       }
     },
     {
